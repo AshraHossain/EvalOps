@@ -1,0 +1,28 @@
+{
+  "name": "EvalOps Delivery Board",
+  "description": "Phase-driven board for EvalOps execution",
+  "columns": [
+    "Backlog",
+    "Ready",
+    "In Progress",
+    "Review",
+    "Done"
+  ],
+  "phase_labels": [
+    "phase-1-foundation",
+    "phase-2-tracing",
+    "phase-3-rag-eval",
+    "phase-4-hallucination",
+    "phase-5-regression",
+    "phase-6-agent-observability",
+    "phase-7-retrieval-analytics",
+    "phase-8-cost-intelligence",
+    "phase-9-realtime-monitoring",
+    "phase-10-enterprise-rollout"
+  ],
+  "automation": {
+    "new_issue_to": "Backlog",
+    "pr_open_to": "Review",
+    "pr_merge_to": "Done"
+  }
+}

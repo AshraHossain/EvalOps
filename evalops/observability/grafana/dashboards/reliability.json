@@ -1,0 +1,17 @@
+{
+  "title": "EvalOps Reliability",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Reliability Score",
+      "targets": [{"expr": "evalops_reliability_score"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Hallucination Rate",
+      "targets": [{"expr": "evalops_hallucination_rate"}]
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 1
+}

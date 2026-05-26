@@ -1,0 +1,52 @@
+services:
+  backend:
+    build:
+      context: ../../backend
+    environment:
+      EVALOPS_POSTGRES_DSN: postgresql+asyncpg://evalops:evalops@postgres:5432/evalops
+      EVALOPS_ALEMBIC_DSN: postgresql+psycopg2://evalops:evalops@postgres:5432/evalops
+      EVALOPS_REDIS_URL: redis://redis:6379/0
+      EVALOPS_CLICKHOUSE_URL: http://clickhouse:8123
+      EVALOPS_CLICKHOUSE_DATABASE: evalops
+    depends_on:
+      - postgres
+      - redis
+      - clickhouse
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --loop asyncio
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: evalops
+      POSTGRES_PASSWORD: evalops
+      POSTGRES_DB: evalops
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    volumes:
+      - ../../observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:11.2.2
+    volumes:
+      - ../../observability/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ../../observability/grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3000:3000"

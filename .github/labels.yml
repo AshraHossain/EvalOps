@@ -1,0 +1,45 @@
+- name: phase-1-foundation
+  color: "1D76DB"
+  description: "Phase 1 foundation work"
+- name: phase-2-tracing
+  color: "0052CC"
+  description: "Phase 2 trace collection"
+- name: phase-3-rag-eval
+  color: "006644"
+  description: "Phase 3 RAG evaluation"
+- name: phase-4-hallucination
+  color: "0E8A16"
+  description: "Phase 4 hallucination detection"
+- name: phase-5-regression
+  color: "5319E7"
+  description: "Phase 5 prompt regression"
+- name: phase-6-agent-observability
+  color: "B60205"
+  description: "Phase 6 agent observability"
+- name: phase-7-retrieval-analytics
+  color: "D93F0B"
+  description: "Phase 7 retrieval analytics"
+- name: phase-8-cost-intelligence
+  color: "FBCA04"
+  description: "Phase 8 cost intelligence"
+- name: phase-9-realtime-monitoring
+  color: "C2E0C6"
+  description: "Phase 9 realtime monitoring"
+- name: phase-10-enterprise-rollout
+  color: "EDEDED"
+  description: "Phase 10 enterprise rollout"
+- name: kind-backend
+  color: "bfd4f2"
+  description: "Backend/API work"
+- name: kind-infra
+  color: "d4c5f9"
+  description: "Infrastructure work"
+- name: kind-frontend
+  color: "f9d0c4"
+  description: "Frontend/dashboard work"
+- name: kind-evaluation
+  color: "c2e0c6"
+  description: "Evaluation metrics/runners"
+- name: priority-high
+  color: "b60205"
+  description: "Needs immediate attention"

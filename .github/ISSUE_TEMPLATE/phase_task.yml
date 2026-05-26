@@ -1,0 +1,43 @@
+name: Phase Task
+description: Create a tracked implementation item for a roadmap phase
+title: "[Phase X] "
+labels: []
+body:
+  - type: input
+    id: phase
+    attributes:
+      label: Phase
+      description: "Use one of: 1..10"
+      placeholder: "3"
+    validations:
+      required: true
+  - type: input
+    id: objective
+    attributes:
+      label: Objective
+      placeholder: "Implement RAG quality scoring endpoint"
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: "Concrete in/out scope"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: "List verifiable checks"
+      placeholder: |
+        - [ ] API returns persisted results
+        - [ ] Unit tests added
+        - [ ] Docs updated
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: "Blocking tasks or infra prerequisites"
