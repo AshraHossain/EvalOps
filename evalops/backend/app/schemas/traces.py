@@ -13,7 +13,7 @@ class TraceEvent(BaseModel):
     latency_ms: int = 0
     metadata: dict = Field(default_factory=dict)
     timestamp: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
+        default_factory=lambda: datetime.now(timezone.utc).replace(tzinfo=None)
     )
 
 

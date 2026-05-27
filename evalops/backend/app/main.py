@@ -5,6 +5,7 @@ from fastapi import FastAPI
 
 from app.api.v1.router import api_router
 from app.core.config import settings
+from app.core.metrics import metrics_app
 from app.services.eval_queue import evaluation_queue
 from app.services.eval_worker import start_workers
 
@@ -24,6 +25,7 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
 app.include_router(api_router, prefix=settings.api_prefix)
+app.mount("/metrics", metrics_app)
 
 
 @app.get('/health')

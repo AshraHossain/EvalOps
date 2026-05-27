@@ -3,6 +3,7 @@ import logging
 
 from app.core.config import settings
 from app.core.database import SessionLocal
+from app.core.metrics import hallucination_rate
 from app.services.eval_queue import EvalWorkItem, evaluation_queue
 from app.services.evaluators import run_deepeval, run_ragas
 from app.services.repositories import EvaluationJobRepository
@@ -27,6 +28,7 @@ async def process_item(
     else:
         raise ValueError(f"unsupported evaluator: {item.evaluator}")
     await repo.set_status(item.job_id, "completed", result=result)
+    hallucination_rate.set(result.hallucination_risk)
 
 
 async def handle_item(

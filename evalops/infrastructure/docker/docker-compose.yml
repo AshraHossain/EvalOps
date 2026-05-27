@@ -32,6 +32,8 @@ services:
 
   clickhouse:
     image: clickhouse/clickhouse-server:24.8
+    volumes:
+      - ./clickhouse/default-user.xml:/etc/clickhouse-server/users.d/default-user.xml:ro
     ports:
       - "8123:8123"
       - "9000:9000"
