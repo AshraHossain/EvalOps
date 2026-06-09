@@ -1,54 +1,5 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# EvalOps Monorepo
+# EvalOps Monorepo - AI Evaluation, Reliability & Observability Platform
 
 Production-grade AI evaluation and observability platform.
 

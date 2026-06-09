@@ -1,7 +1,20 @@
 # System Architecture
 
 ## Context
-EvalOps ingests AI traces, evaluates quality signals, computes reliability, and exposes monitoring surfaces.
+EvalOps is the evaluation and observability backbone of the enterprise AI ecosystem. It ingests AI traces, evaluates quality signals, computes reliability, and exposes monitoring surfaces. KnowledgeOps, SentinelAI, and NexusAI all feed evaluation data through EvalOps.
+
+## Ecosystem Architecture
+```mermaid
+flowchart TD
+  User --> KO[KnowledgeOps RAG]
+  KO --> SA[SentinelAI Governance]
+  SA --> KO
+  KO --> EO[EvalOps Evaluation]
+  EO --> Prom[(Prometheus)]
+  Prom --> Grafana
+  KO --> NexusAI[NexusAI Agents]
+  NexusAI --> EO
+```
 
 ## Diagram
 ```mermaid

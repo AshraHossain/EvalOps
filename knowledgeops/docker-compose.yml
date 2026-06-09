@@ -1,0 +1,12 @@
+services:
+  knowledgeops:
+    build:
+      context: ./backend
+    environment:
+      KNOWLEDGEOPS_EVALOPS_BASE_URL: http://host.docker.internal:8000
+      KNOWLEDGEOPS_OLLAMA_BASE_URL: http://host.docker.internal:11434
+      KNOWLEDGEOPS_LLM_MODEL: llama3
+    ports:
+      - "8100:8100"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
