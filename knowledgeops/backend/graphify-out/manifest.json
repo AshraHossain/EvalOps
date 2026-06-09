@@ -1,0 +1,152 @@
+{
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\__init__.py": {
+    "mtime": 1780976317.74,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\api\\__init__.py": {
+    "mtime": 1780976285.95,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\api\\deps.py": {
+    "mtime": 1780976308.0,
+    "ast_hash": "62317731e502924d864c8ab30d436ed1",
+    "semantic_hash": "62317731e502924d864c8ab30d436ed1"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\api\\routes\\__init__.py": {
+    "mtime": 1780976287.45,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\api\\routes\\health.py": {
+    "mtime": 1780976290.0,
+    "ast_hash": "cb8af576390249c59b5cffc7ba4fb89f",
+    "semantic_hash": "cb8af576390249c59b5cffc7ba4fb89f"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\api\\routes\\ingest.py": {
+    "mtime": 1780976294.0,
+    "ast_hash": "f3aff101fac8385013e73f8a76f4bfc0",
+    "semantic_hash": "f3aff101fac8385013e73f8a76f4bfc0"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\api\\routes\\query.py": {
+    "mtime": 1780976302.0,
+    "ast_hash": "ef8e07f971a9f589f0adde31dcb498ad",
+    "semantic_hash": "ef8e07f971a9f589f0adde31dcb498ad"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\config.py": {
+    "mtime": 1780976312.0,
+    "ast_hash": "32b71ece560c3704d7240fa0cef42c81",
+    "semantic_hash": "32b71ece560c3704d7240fa0cef42c81"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\evaluation\\__init__.py": {
+    "mtime": 1780976264.3,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\evaluation\\evalops_client.py": {
+    "mtime": 1780976272.0,
+    "ast_hash": "6cba9dd14afe85532060966788e373fd",
+    "semantic_hash": "6cba9dd14afe85532060966788e373fd"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\generation\\__init__.py": {
+    "mtime": 1780976250.69,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\generation\\llm.py": {
+    "mtime": 1780976260.0,
+    "ast_hash": "8ef93f8c981aec241a8e6fb3b6141ae8",
+    "semantic_hash": "8ef93f8c981aec241a8e6fb3b6141ae8"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\generation\\prompt.py": {
+    "mtime": 1780976256.0,
+    "ast_hash": "7cd01f56cd364c4d5c9c4c812e6b477f",
+    "semantic_hash": "7cd01f56cd364c4d5c9c4c812e6b477f"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\governance\\__init__.py": {
+    "mtime": 1780976275.46,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\governance\\sentinel.py": {
+    "mtime": 1780976282.0,
+    "ast_hash": "c18c2ce06c26ef3f9b042a26d2f81e96",
+    "semantic_hash": "c18c2ce06c26ef3f9b042a26d2f81e96"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\main.py": {
+    "mtime": 1780976314.0,
+    "ast_hash": "f9de3ea7fb402539b2ddff3680cdfee7",
+    "semantic_hash": "f9de3ea7fb402539b2ddff3680cdfee7"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\models\\__init__.py": {
+    "mtime": 1780976319.98,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\retrieval\\__init__.py": {
+    "mtime": 1780976212.28,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\retrieval\\bm25.py": {
+    "mtime": 1780976218.0,
+    "ast_hash": "d7247c3647a3fcb8b52430fc29c0e2ea",
+    "semantic_hash": "d7247c3647a3fcb8b52430fc29c0e2ea"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\retrieval\\hybrid.py": {
+    "mtime": 1780976234.0,
+    "ast_hash": "718a18f881b980898073c474ca9f6d2b",
+    "semantic_hash": "718a18f881b980898073c474ca9f6d2b"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\retrieval\\reranker.py": {
+    "mtime": 1780976226.0,
+    "ast_hash": "1d47b0fd6dfad0fd53a5ebb29ed48c84",
+    "semantic_hash": "1d47b0fd6dfad0fd53a5ebb29ed48c84"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\retrieval\\vector.py": {
+    "mtime": 1780976222.0,
+    "ast_hash": "7d9afb0224905993be3473d7ac615f9f",
+    "semantic_hash": "7d9afb0224905993be3473d7ac615f9f"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\schemas\\__init__.py": {
+    "mtime": 1780976203.52,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\schemas\\document.py": {
+    "mtime": 1780976206.0,
+    "ast_hash": "ac8c33d83ac43f34fde068e7fdc37945",
+    "semantic_hash": "ac8c33d83ac43f34fde068e7fdc37945"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\app\\schemas\\query.py": {
+    "mtime": 1780976210.0,
+    "ast_hash": "acd4f40104b0b7d68a4385e225598a64",
+    "semantic_hash": "acd4f40104b0b7d68a4385e225598a64"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\tests\\__init__.py": {
+    "mtime": 1780976321.32,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\tests\\conftest.py": {
+    "mtime": 1780990826.0,
+    "ast_hash": "71b2b899115734f1ecd4bba11a044680",
+    "semantic_hash": "71b2b899115734f1ecd4bba11a044680"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\tests\\test_query_route.py": {
+    "mtime": 1780976368.0,
+    "ast_hash": "b47a494cd1eee545404fc6a6ec37f88d",
+    "semantic_hash": "b47a494cd1eee545404fc6a6ec37f88d"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\tests\\test_retrieval.py": {
+    "mtime": 1780976362.0,
+    "ast_hash": "e4957cc6377f5e1c215cde82c1b2b7cc",
+    "semantic_hash": "e4957cc6377f5e1c215cde82c1b2b7cc"
+  },
+  "D:\\AI_Models\\projects\\EvalOps\\knowledgeops\\backend\\requirements.txt": {
+    "mtime": 1780976324.0,
+    "ast_hash": "ecdbadc5b075432a0f7993a72df7cfdc",
+    "semantic_hash": "ecdbadc5b075432a0f7993a72df7cfdc"
+  }
+}
