@@ -1,13 +1,13 @@
-name: backend-ci
+name: knowledgeops-ci
 on:
   push:
     branches: [main, master]
     paths:
-      - "evalops/backend/**"
-      - ".github/workflows/backend-ci.yml"
+      - "knowledgeops/backend/**"
+      - ".github/workflows/knowledgeops-ci.yml"
   pull_request:
     paths:
-      - "evalops/backend/**"
+      - "knowledgeops/backend/**"
 
 jobs:
   test:
@@ -26,22 +26,22 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r evalops/backend/requirements.txt
+          pip install -r knowledgeops/backend/requirements.txt
           pip install pytest-cov
 
       - name: Lint with compile check
-        run: python -m compileall evalops/backend/app
+        run: python -m compileall knowledgeops/backend/app
 
       - name: Run tests with coverage
         run: |
-          cd evalops/backend
+          cd knowledgeops/backend
           python -m pytest tests -v --cov=app --cov-report=xml --cov-report=term
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          files: ./evalops/backend/coverage.xml
-          flags: unittests
-          name: codecov-umbrella
+          files: ./knowledgeops/backend/coverage.xml
+          flags: knowledgeops-unittests
+          name: codecov-knowledgeops
           fail_ci_if_error: false
         continue-on-error: true
