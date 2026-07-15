@@ -1,0 +1,24 @@
+name: hallucination_check
+version: "1.0"
+description: "Prompt to detect hallucinations in generated answers"
+model_compatibility: ["llama3", "gpt-4", "claude"]
+
+system_prompt: |
+  You are a fact-checker. Your task is to verify if the answer contains information
+  that is NOT supported by the provided context.
+
+  Respond with JSON: {"is_hallucination": true/false, "unsupported_claims": [...], "confidence": 0.0-1.0}
+
+user_template: |
+  Context: {{ context }}
+
+  Answer: {{ answer }}
+
+  Question: {{ question }}
+
+  Check if the answer contains any claims not supported by the context.
+
+parameters:
+  temperature: 0.3
+  max_tokens: 200
+  top_p: 0.9

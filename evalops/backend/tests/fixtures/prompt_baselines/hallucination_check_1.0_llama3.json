@@ -1,0 +1,17 @@
+{
+  "question": "What is artificial intelligence?",
+  "context": "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to natural intelligence.",
+  "answer": "AI is intelligence demonstrated by machines. It was invented by Alan Turing in 1950.",
+  "result": {
+    "is_hallucination": true,
+    "unsupported_claims": [
+      "AI was invented by Alan Turing in 1950"
+    ],
+    "confidence": 0.95
+  },
+  "metadata": {
+    "model": "llama3",
+    "temperature": 0.3,
+    "timestamp": "2024-01-01T00:00:00Z"
+  }
+}

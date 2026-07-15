@@ -1,0 +1,13 @@
+{
+  "question": "What is artificial intelligence?",
+  "context_chunks": [
+    "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to natural intelligence displayed by humans and animals.",
+    "AI applications include expert systems, natural language processing, computer vision, and robotics."
+  ],
+  "answer": "Based on the provided context, artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to natural intelligence displayed by humans and animals [1]. AI has various applications including expert systems, natural language processing, computer vision, and robotics [2].",
+  "metadata": {
+    "model": "llama3",
+    "temperature": 0.7,
+    "timestamp": "2024-01-01T00:00:00Z"
+  }
+}
