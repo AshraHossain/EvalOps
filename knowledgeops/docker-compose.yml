@@ -1,4 +1,15 @@
 services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: knowledgeops
+      POSTGRES_PASSWORD: knowledgeops
+      POSTGRES_DB: knowledgeops
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   knowledgeops:
     build:
       context: ./backend
@@ -6,7 +17,13 @@ services:
       KNOWLEDGEOPS_EVALOPS_BASE_URL: http://host.docker.internal:8000
       KNOWLEDGEOPS_OLLAMA_BASE_URL: http://host.docker.internal:11434
       KNOWLEDGEOPS_LLM_MODEL: llama3
+      KNOWLEDGEOPS_POSTGRES_DSN: postgresql://knowledgeops:knowledgeops@postgres:5432/knowledgeops
     ports:
       - "8100:8100"
+    depends_on:
+      - postgres
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+volumes:
+  postgres_data:
