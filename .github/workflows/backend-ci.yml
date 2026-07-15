@@ -37,6 +37,34 @@ jobs:
           cd evalops/backend
           python -m pytest tests -v --cov=app --cov-report=xml --cov-report=term
 
+      - name: Run prompt regression tests
+        id: regression
+        run: |
+          cd evalops/backend
+          python -m pytest tests/test_prompt_regression.py -v --junitxml=regression-report.xml
+        continue-on-error: true
+
+      - name: Upload regression report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regression-report
+          path: evalops/backend/regression-report.xml
+
+      - name: Comment regression status on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const regressionStatus = '${{ steps.regression.outcome }}' === 'success' ? '✅ All prompts pass' : '❌ Regression detected';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Prompt Regression Check\n${regressionStatus}\n\nSee regression-report artifact for details.`
+            });
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
