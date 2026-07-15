@@ -1,0 +1,21 @@
+Write-Host "🚀 Starting EvalOps Docker Stack..."
+Write-Host "  Postgres: localhost:5432"
+Write-Host "  Redis: localhost:6379"
+Write-Host "  ClickHouse: localhost:8123"
+Write-Host "  Prometheus: localhost:9090"
+Write-Host "  Grafana: localhost:3000"
+Write-Host "  Backend API: localhost:8000"
+Write-Host ""
+
+docker-compose up -d
+
+Write-Host "✓ Stack started!"
+Write-Host ""
+Write-Host "Next steps:"
+Write-Host "  1. Wait 10s for Postgres to initialize"
+Write-Host "  2. Run database migrations:"
+Write-Host "     cd ..\..\backend; python -m alembic upgrade head"
+Write-Host "  3. Visit API docs: http://localhost:8000/docs"
+Write-Host "  4. Visit Grafana: http://localhost:3000 (admin/admin)"
+Write-Host ""
+Write-Host "To stop: docker-compose down"
