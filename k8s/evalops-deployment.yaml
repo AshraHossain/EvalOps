@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: evalops-backend
+  namespace: default
+  labels:
+    app: evalops
+    component: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: evalops
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: evalops
+        component: backend
+    spec:
+      containers:
+      - name: evalops
+        image: evalops:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: evalops-secrets
+              key: database-url
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: evalops-secrets
+              key: github-token
+        - name: GITHUB_REPOSITORY
+          value: "AshraHossain/EvalOps"
+        - name: CLICKHOUSE_HOST
+          value: "clickhouse.default.svc.cluster.local"
+        - name: CLICKHOUSE_PORT
+          value: "9000"
+        envFrom:
+        - configMapRef:
+            name: evalops-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: evalops-backend
+  namespace: default
+  labels:
+    app: evalops
+    component: backend
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 8000
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: evalops
+    component: backend

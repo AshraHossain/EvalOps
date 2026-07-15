@@ -1,0 +1,113 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Deployment environment
+        required: true
+        default: staging
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+  push:
+    tags:
+      - 'v*'
+
+env:
+  AWS_REGION: us-east-1
+  REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      evalops-image: ${{ steps.image.outputs.evalops }}
+      knowledgeops-image: ${{ steps.image.outputs.knowledgeops }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push EvalOps image
+        id: image
+        run: |
+          export EVALOPS_IMAGE=${{ env.REGISTRY }}/evalops-backend:${{ github.sha }}
+          export KNOWLEDGEOPS_IMAGE=${{ env.REGISTRY }}/knowledgeops-backend:${{ github.sha }}
+
+          docker build -t ${EVALOPS_IMAGE} ./evalops/backend
+          docker push ${EVALOPS_IMAGE}
+
+          docker build -t ${KNOWLEDGEOPS_IMAGE} ./knowledgeops/backend
+          docker push ${KNOWLEDGEOPS_IMAGE}
+
+          echo "evalops=${EVALOPS_IMAGE}" >> $GITHUB_OUTPUT
+          echo "knowledgeops=${KNOWLEDGEOPS_IMAGE}" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    environment:
+      name: ${{ github.event.inputs.environment || 'staging' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --name evalops-cluster --region ${{ env.AWS_REGION }}
+
+      - name: Update EvalOps deployment
+        env:
+          IMAGE: ${{ needs.build-and-push.outputs.evalops-image }}
+        run: |
+          kubectl set image deployment/evalops-backend evalops=${{ env.IMAGE }} -n default
+
+      - name: Update KnowledgeOps deployment
+        env:
+          IMAGE: ${{ needs.build-and-push.outputs.knowledgeops-image }}
+        run: |
+          kubectl set image deployment/knowledgeops-backend knowledgeops=${{ env.IMAGE }} -n default
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/evalops-backend -n default --timeout=5m
+          kubectl rollout status deployment/knowledgeops-backend -n default --timeout=5m
+
+      - name: Run smoke tests
+        run: |
+          EVALOPS_URL="http://$(kubectl get svc evalops-backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'):8000"
+          KNOWLEDGEOPS_URL="http://$(kubectl get svc knowledgeops-backend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'):8100"
+
+          echo "Testing EvalOps at $EVALOPS_URL"
+          curl -f ${EVALOPS_URL}/health || exit 1
+
+          echo "Testing KnowledgeOps at $KNOWLEDGEOPS_URL"
+          curl -f ${KNOWLEDGEOPS_URL}/health || exit 1
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          STATUS=${{ job.status }}
+          echo "Deployment $STATUS for ${{ github.event.inputs.environment || 'staging' }}"

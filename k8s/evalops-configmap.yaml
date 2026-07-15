@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: evalops-config
+  namespace: default
+data:
+  LOG_LEVEL: "INFO"
+  DATABASE_POOL_SIZE: "10"
+  DATABASE_MAX_OVERFLOW: "20"
+  PROMETHEUS_SCRAPE_INTERVAL: "30s"
+  EVALUATION_TIMEOUT_SECONDS: "300"
+  RAG_TOP_K: "5"
+  HALLUCINATION_THRESHOLD: "0.7"
+  RAGAS_BATCH_SIZE: "10"

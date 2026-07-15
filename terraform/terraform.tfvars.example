@@ -1,0 +1,11 @@
+aws_region     = "us-east-1"
+environment    = "dev"
+vpc_cidr       = "10.0.0.0/16"
+
+# IMPORTANT: Set these with actual values before apply
+# Use `terraform apply -var-file=secrets.tfvars` to avoid committing secrets
+db_master_username = "dbadmin"
+db_master_password = "ChangeMe123456789!" # Minimum 20 chars
+
+db_instance_class = "db.t3.medium"
+skip_final_snapshot = true
