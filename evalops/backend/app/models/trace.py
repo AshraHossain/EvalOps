@@ -33,11 +33,11 @@ class TraceSpan(Base):
     outputs = Column(JSON, nullable=True)  # Return value
     error = Column(Text, nullable=True)  # Error message if failed
 
-    # Metadata
-    metadata = Column(JSON, nullable=True)  # Custom fields (tokens, model, cost, etc.)
+    # Span metadata
+    span_metadata = Column(JSON, nullable=True)  # Custom fields (tokens, model, cost, etc.)
 
     # Relationships
-    trace = Relationship("TraceGraph", back_populates="spans")
+    trace = Relationship("TraceGraph", back_populates="spans", foreign_keys=[trace_id])
     children = Relationship(
         "TraceSpan",
         remote_side=[id],
@@ -70,11 +70,11 @@ class TraceGraph(Base):
     critical_path_length_ms = Column(Float, nullable=True)
     max_parallelism = Column(Float, nullable=True)
 
-    # Metadata
-    metadata = Column(JSON, nullable=True)  # Custom fields
+    # Graph metadata
+    graph_metadata = Column(JSON, nullable=True)  # Custom fields
 
     # Relationships
-    spans = Relationship("TraceSpan", back_populates="trace", cascade="all, delete-orphan")
+    spans = Relationship("TraceSpan", back_populates="trace", foreign_keys="[TraceSpan.trace_id]", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"<TraceGraph {self.agent_id} {self.run_id} {self.total_duration_ms}ms>"

@@ -25,10 +25,11 @@ class TraceSpanResponse(BaseModel):
     outputs: Optional[dict[str, Any]] = None
     error: Optional[str] = None
 
-    metadata: Optional[dict[str, Any]] = None
+    metadata: Optional[dict[str, Any]] = Field(None, alias="span_metadata")
 
     class Config:
         from_attributes = True
+        populate_by_name = True
 
 
 class TraceGraphResponse(BaseModel):
@@ -48,10 +49,11 @@ class TraceGraphResponse(BaseModel):
     critical_path_length_ms: Optional[float] = None
     max_parallelism: Optional[float] = None
 
-    metadata: Optional[dict[str, Any]] = None
+    metadata: Optional[dict[str, Any]] = Field(None, alias="graph_metadata")
 
     class Config:
         from_attributes = True
+        populate_by_name = True
 
 
 class TraceGraphSummary(BaseModel):
