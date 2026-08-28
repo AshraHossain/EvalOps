@@ -188,3 +188,31 @@ npx @claude-flow/cli@latest doctor --fix
 ```
 
 **Agent tool** handles execution (agents, files, code, git). **MCP tools** handle coordination (swarm, memory, hooks). **CLI** is the same via Bash.
+
+## SuperClaude Framework Conventions
+
+This repo also follows the SuperClaude Framework structure used across the
+portfolio, on top of (not instead of) the Ruflo/swarm conventions above:
+
+- **`PLANNING.md`** — source-of-truth architecture doc. This is a monorepo
+  with **two independent backends** (`evalops/`, `knowledgeops/`) that only
+  talk over HTTP, plus `k8s/`/`terraform/` infra. Keep it in sync with the
+  Portfolio Ecosystem table above when either changes.
+- **`TASK.md`** — priority-ordered task list; check before picking up new
+  work.
+- **`plugins/`** — reserved extension point for replacing stubs (in-process
+  eval queue → durable queue, SentinelAI governance pass-through → real
+  integration, Ollama-only LLM → additional providers) with real
+  integrations. See `plugins/README.md`.
+- **`CONTRIBUTING.md`** — development setup. Each backend now has its own
+  `pyproject.toml` + `uv.lock` under its `backend/` directory
+  (`evalops/backend/`, `knowledgeops/backend/`) managed with **uv**, not a
+  shared root Python environment and not raw `pip install -r
+  requirements.txt` (the `requirements.txt` files are kept for reference/CI
+  compatibility but `pyproject.toml`/`uv.lock` are now the source of truth
+  for dependency versions).
+- **`LICENSE`** — proprietary, all rights reserved.
+- Cross-project relationships (ports, real integration points with
+  SentinelAI/NexusAI in sibling repos) belong in the portfolio-wide
+  `../.planning/INTEGRATION.md` if/when that file exists for this
+  workspace — this repo's own `PLANNING.md` covers only what's inside it.
