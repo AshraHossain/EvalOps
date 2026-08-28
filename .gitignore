@@ -65,3 +65,13 @@ logs/
 
 # GSD planning state (local only)
 .planning/
+
+# Tool and run artifacts (added 2026-08-12)
+# `*.err` and the stray zero-byte files came from accidental shell
+# redirections -- a mistyped `2>&1` leaves a file literally named `0` or
+# `Dict[str`. Ignored so they stop reappearing in `git status`.
+*.err
+graphify-out/
+.graphify_*
+.claude-flow/
+.mcp.json
