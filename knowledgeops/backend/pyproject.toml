@@ -25,6 +25,7 @@ dependencies = [
     "opentelemetry-sdk==1.27.0",
     "opentelemetry-instrumentation-fastapi==0.48b0",
     "prometheus-client==0.21.0",
+    "numpy>=1.26,<2",
 ]
 
 [project.urls]
