@@ -35,14 +35,34 @@ def client(db_session):
     app.dependency_overrides.clear()
 
 
-def test_enqueue_rag_creates_job(client):
+@pytest.fixture
+def stub_queue(monkeypatch):
+    """Stub the Redis-backed queue so route tests need no broker.
+
+    Without this the endpoint blocks on a real Redis connection, which makes
+    the test both slow and dependent on infrastructure that has nothing to do
+    with the behaviour under test.
+    """
+    calls = []
+
+    async def fake_enqueue(evaluator, payload):
+        calls.append((evaluator, payload))
+        return f"job-{len(calls)}"
+
+    monkeypatch.setattr(
+        "app.api.v1.evaluations.evaluation_queue.enqueue", fake_enqueue
+    )
+    return calls
+
+
+def test_enqueue_rag_creates_job(client, stub_queue):
     """Test POST /api/v1/evaluations/rag/run enqueues a RAG evaluation."""
     payload = {
         "run_id": "run-123",
-        "question": "What is AI?",
+        "query": "What is AI?",
         "answer": "AI is artificial intelligence.",
-        "context": "AI is artificial intelligence and machine learning.",
-        "ground_truth": "AI is artificial intelligence."
+        "context": ["AI is artificial intelligence and machine learning."],
+        "reference": "AI is artificial intelligence.",
     }
     response = client.post("/api/v1/evaluations/rag/run", json=payload)
     assert response.status_code == 200
@@ -51,14 +71,14 @@ def test_enqueue_rag_creates_job(client):
     assert "job_id" in data
 
 
-def test_enqueue_deepeval_creates_job(client):
+def test_enqueue_deepeval_creates_job(client, stub_queue):
     """Test POST /api/v1/evaluations/deepeval/run enqueues a DeepEval evaluation."""
     payload = {
         "run_id": "run-124",
-        "question": "What is ML?",
+        "query": "What is ML?",
         "answer": "ML is machine learning.",
-        "context": "ML is machine learning.",
-        "ground_truth": "ML is machine learning."
+        "context": ["ML is machine learning."],
+        "reference": "ML is machine learning.",
     }
     response = client.post("/api/v1/evaluations/deepeval/run", json=payload)
     assert response.status_code == 200
