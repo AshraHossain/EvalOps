@@ -15,13 +15,22 @@ Priority task list. See `PLANNING.md` for architecture context (both
   (task 4) is complete, but the interactive trace-graph UI in
   `evalops/frontend/` described in `SESSION_SUMMARY.md` as deferred has not
   been picked up.
-- [ ] **Re-run both test suites post-uv-migration** — `uv run pytest` in
-  each of `evalops/backend/` and `knowledgeops/backend/` to confirm the move
-  from `requirements.txt`/venv to `pyproject.toml`/`uv sync` didn't change
-  resolved versions in a way that breaks anything. (Import-level smoke test
-  done as part of this migration; full pytest run against live Postgres/
-  ClickHouse/Redis was not re-verified here — see Getting Started in
-  `CONTRIBUTING.md`.)
+- [x] **Re-run both test suites post-uv-migration** — done. `uv run pytest`
+  under the new `pyproject.toml`/`uv.lock` environment: `evalops/backend`
+  64 passed / 4 skipped (pre-existing DB-fixture skips, unrelated to the
+  migration); `knowledgeops/backend` 19 passed. Both against local
+  SQLite/mocks per the existing test setup, not live Postgres/ClickHouse.
+- [x] **`knowledgeops/backend` failed to import: `faiss-cpu==1.8.0` vs
+  NumPy 2.x** — `uv sync` resolved numpy 2.5.2 (no upper bound was pinned
+  anywhere, including the original `requirements.txt`), which crashes
+  `import faiss` at startup (`app.main` → `app.retrieval.vector`). Fixed by
+  pinning `numpy>=1.26,<2` in `pyproject.toml`/`requirements.txt`; verified
+  via clean `uv sync` + `uv run pytest` (19 passed).
+- [x] **`evalops/backend` was missing `networkx` and `jinja2`** — both are
+  imported (`services/trace_graph_builder.py`, `prompts/registry.py`) but
+  were never declared in `requirements.txt`, pre-existing gaps unrelated to
+  this migration. Added to `pyproject.toml`/`requirements.txt`; verified via
+  `uv run python -c "import app.main"` and the full test run above.
 
 ## Medium priority
 
@@ -45,6 +54,13 @@ Priority task list. See `PLANNING.md` for architecture context (both
 - [x] Proprietary `LICENSE` added at repo root.
 - [x] `PLANNING.md`, `TASK.md`, `plugins/README.md` added at repo root
   (SuperClaude Framework structure), covering both sub-apps.
+- [x] `evalops/backend/` and `knowledgeops/backend/` each migrated to
+  `pyproject.toml` + `uv.lock`, `Dockerfile`s and CI workflows switched
+  from `pip install -r requirements.txt` to `uv`, root `README.md` +
+  `CONTRIBUTING.md` + `CLAUDE.md` Framework section added, and a
+  pre-existing 5-failure gap in the `evalops/backend` test suite was
+  fixed (unrelated `pytest.ini`/fixture/schema issues — see commit
+  `f0a0d6a`).
 - [ ] Optimize trace graph algorithms for >10k spans (noted in
   `SESSION_SUMMARY.md`, not yet started).
 - [ ] Add replay validation tests for `trace_replay.py`.
